@@ -1,0 +1,5 @@
+com\aws\dnb\CalculaterApp.class
+com\aws\dnb\model\Arithmetic$ArithmeticBuilder.class
+com\aws\dnb\controller\LambdaHandler.class
+com\aws\dnb\model\Arithmetic.class
+com\aws\dnb\controller\CalculatorController.class

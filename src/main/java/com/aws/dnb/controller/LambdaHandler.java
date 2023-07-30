@@ -15,7 +15,7 @@ import java.io.OutputStream;
 public class LambdaHandler implements RequestStreamHandler {
 
 
-    private  CalculatorController calculatorController = new CalculatorController();
+    private LoanController calculatorController = new LoanController();
 
 
 

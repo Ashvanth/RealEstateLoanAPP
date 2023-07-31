@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="CalculatorAPI" />
+        <module name="HomeLoanAPI" />
         <module name="CalculatorAPI_DNB_CDK_AWS" />
       </profile>
     </annotationProcessing>
@@ -15,6 +16,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="CalculatorAPI" options="-parameters" />
       <module name="CalculatorAPI_DNB_CDK_AWS" options="-parameters" />
+      <module name="HomeLoanAPI" options="-parameters" />
     </option>
   </component>
 </project>

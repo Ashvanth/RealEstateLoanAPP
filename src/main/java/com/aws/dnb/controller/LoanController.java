@@ -2,16 +2,37 @@ package com.aws.dnb.controller;
 
 import com.aws.dnb.model.ApplicantInformation;
 import com.aws.dnb.model.Arithmetic;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.aws.dnb.service.ApplicantService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
+@RequestMapping("/loan/v1")
 public class LoanController {
 
+    private static ApplicantService applicantService;
+
+    @Autowired
+    public LoanController(ApplicantService applicantService) {
+        this.applicantService = applicantService;
+    }
+
+    @GetMapping("/check")
+    public String healthCheck(){
+        return "Check Okay";
+    }
+
     @PostMapping
-    public String storeApplicationInformation(@RequestBody ApplicantInformation applicantInformation)
+    public ResponseEntity storeApplicationInformation(@RequestBody ApplicantInformation applicantInformation)
     {
-        return "application infromation stored";
+         applicantService.saveApplication(applicantInformation);
+         return ResponseEntity.status(200).body("Application Sent to Advisor");
+    }
+
+    public String arthimaticOperation(@RequestBody Arithmetic arithmetic){
+        return "OK";
     }
 }

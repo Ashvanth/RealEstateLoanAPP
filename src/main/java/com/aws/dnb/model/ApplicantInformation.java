@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table
-public class ApplicantInformationDTO {
+public class ApplicantInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long applicationID;

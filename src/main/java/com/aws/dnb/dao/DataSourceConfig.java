@@ -13,7 +13,7 @@ public class DataSourceConfig {
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("com.mysql.jdbc.Driver");
-        dataSourceBuilder.url("jdbc:mysql://database-1.cub9byjgpr1p.eu-west-1.rds.amazonaws.com:3306/TRANS");
+        dataSourceBuilder.url("jdbc:mysql://database-1.cub9byjgpr1p.eu-west-1.rds.amazonaws.com:3306/LOAN");
         dataSourceBuilder.username("admin");
         dataSourceBuilder.password("password");
         return dataSourceBuilder.build();

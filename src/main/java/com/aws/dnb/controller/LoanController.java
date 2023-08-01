@@ -1,6 +1,6 @@
 package com.aws.dnb.controller;
 
-import com.aws.dnb.model.ApplicantInformation;
+import com.aws.dnb.model.ApplicantInformationDTO;
 import com.aws.dnb.model.Arithmetic;
 import com.aws.dnb.service.ApplicantService;
 import lombok.AllArgsConstructor;
@@ -26,10 +26,8 @@ public class LoanController {
     }
 
     @PostMapping
-    public ResponseEntity storeApplicationInformation(@RequestBody ApplicantInformation applicantInformation)
-    {
-         applicantService.saveApplication(applicantInformation);
-         return ResponseEntity.status(200).body("Application Sent to Advisor");
+    public ResponseEntity storeApplicationInformation(@RequestBody ApplicantInformationDTO applicantInformation) {
+        return ResponseEntity.status(200).body("Application Sent to Advisor"+ applicantService.saveApplication(applicantInformation));
     }
 
     public String arthimaticOperation(@RequestBody Arithmetic arithmetic){

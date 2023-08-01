@@ -3,7 +3,7 @@ package com.aws.dnb.handler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.aws.dnb.controller.LoanController;
-import com.aws.dnb.model.ApplicantInformation;
+import com.aws.dnb.model.ApplicantInformationDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -34,20 +34,14 @@ public class LambdaHandler implements RequestStreamHandler {
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
         String requestBody = readInputStream(inputStream);
 
-        ApplicantInformation applicantInformation = null;
+        ApplicantInformationDTO applicantInformation = null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            applicantInformation = objectMapper.readValue(requestBody, ApplicantInformation.class);
-            log.debug("----------------Value1------------"+applicantInformation.getFullName());
-            log.debug("----------------Value2------------"+applicantInformation.getCustomerSSN());
-            log.debug("----------------Value3------------"+applicantInformation.getEquityAmount());
-            log.debug("----------------Value3------------"+applicantInformation.getLoanAmount());
+            applicantInformation = objectMapper.readValue(requestBody, ApplicantInformationDTO.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
         ResponseEntity responseEntity = loanController.storeApplicationInformation(applicantInformation);
-
-       // String responseBody = "Value for the Provided arithmeticOperation -> "+arithmetic.getOperation()+" is = "+result;
         outputStream.write(responseEntity.getBody().toString().getBytes());
 
     }

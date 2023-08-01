@@ -4,7 +4,5 @@ com\aws\dnb\model\ApplicantInformation.class
 com\aws\dnb\model\Arithmetic.class
 com\aws\dnb\service\ApplicantService.class
 com\aws\dnb\dao\ApplicantStoreRepository.class
-com\aws\dnb\dao\DataSourceConfig.class
 com\aws\dnb\handler\LambdaHandler.class
 com\aws\dnb\controller\LoanController.class
-com\aws\dnb\dao\MatchRepositoryImpl.class

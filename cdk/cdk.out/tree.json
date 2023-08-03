@@ -1,0 +1,608 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "LoanApplicationStack": {
+        "id": "LoanApplicationStack",
+        "path": "LoanApplicationStack",
+        "children": {
+          "Function": {
+            "id": "Function",
+            "path": "LoanApplicationStack/Function",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "LoanApplicationStack/Function/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "LoanApplicationStack/Function/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.89.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LoanApplicationStack/Function/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.89.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.89.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "LoanApplicationStack/Function/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "LoanApplicationStack/Function/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.89.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "LoanApplicationStack/Function/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.89.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.89.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "LoanApplicationStack/Function/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "3353b559c2d9505af1a9292d5227de81e24542ddab2e868c037d034d3a118b81.jar"
+                    },
+                    "handler": "com.aws.dnb.handler::handleRequest",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "FunctionServiceRole675BB04A",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "java17",
+                    "timeout": 600
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.89.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.89.0"
+            }
+          },
+          "AuthorizerBucket": {
+            "id": "AuthorizerBucket",
+            "path": "LoanApplicationStack/AuthorizerBucket",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+              "version": "2.89.0"
+            }
+          },
+          "AuthorizerFunctionJS": {
+            "id": "AuthorizerFunctionJS",
+            "path": "LoanApplicationStack/AuthorizerFunctionJS",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "LoanApplicationStack/AuthorizerFunctionJS/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "LoanApplicationStack/AuthorizerFunctionJS/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.89.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LoanApplicationStack/AuthorizerFunctionJS/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.89.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.89.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "LoanApplicationStack/AuthorizerFunctionJS/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": "authorizerjscode",
+                      "s3Key": "authScript.zip"
+                    },
+                    "handler": "index.handler",
+                    "role": {
+                      "Fn::GetAtt": [
+                        "AuthorizerFunctionJSServiceRole11F4CE68",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "nodejs14.x"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.89.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.89.0"
+            }
+          },
+          "loanApplicationAPI": {
+            "id": "loanApplicationAPI",
+            "path": "LoanApplicationStack/loanApplicationAPI",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "LoanApplicationStack/loanApplicationAPI/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "loanApplicationAPI"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnRestApi",
+                  "version": "2.89.0"
+                }
+              },
+              "Deployment": {
+                "id": "Deployment",
+                "path": "LoanApplicationStack/loanApplicationAPI/Deployment",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LoanApplicationStack/loanApplicationAPI/Deployment/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
+                      "aws:cdk:cloudformation:props": {
+                        "description": "Automatically created by the RestApi construct",
+                        "restApiId": {
+                          "Ref": "loanApplicationAPI37F3B860"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnDeployment",
+                      "version": "2.89.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.Deployment",
+                  "version": "2.89.0"
+                }
+              },
+              "DeploymentStage.v1": {
+                "id": "DeploymentStage.v1",
+                "path": "LoanApplicationStack/loanApplicationAPI/DeploymentStage.v1",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LoanApplicationStack/loanApplicationAPI/DeploymentStage.v1/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
+                      "aws:cdk:cloudformation:props": {
+                        "deploymentId": {
+                          "Ref": "loanApplicationAPIDeploymentF7215B719e7617cbefda683c51d70e60d722d338"
+                        },
+                        "restApiId": {
+                          "Ref": "loanApplicationAPI37F3B860"
+                        },
+                        "stageName": "v1"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnStage",
+                      "version": "2.89.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.Stage",
+                  "version": "2.89.0"
+                }
+              },
+              "Endpoint": {
+                "id": "Endpoint",
+                "path": "LoanApplicationStack/loanApplicationAPI/Endpoint",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.89.0"
+                }
+              },
+              "Default": {
+                "id": "Default",
+                "path": "LoanApplicationStack/loanApplicationAPI/Default",
+                "children": {
+                  "POST": {
+                    "id": "POST",
+                    "path": "LoanApplicationStack/loanApplicationAPI/Default/POST",
+                    "children": {
+                      "ApiPermission.LoanApplicationStackloanApplicationAPIDE2170BC.POST..": {
+                        "id": "ApiPermission.LoanApplicationStackloanApplicationAPIDE2170BC.POST..",
+                        "path": "LoanApplicationStack/loanApplicationAPI/Default/POST/ApiPermission.LoanApplicationStackloanApplicationAPIDE2170BC.POST..",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                          "aws:cdk:cloudformation:props": {
+                            "action": "lambda:InvokeFunction",
+                            "functionName": {
+                              "Fn::GetAtt": [
+                                "Function76856677",
+                                "Arn"
+                              ]
+                            },
+                            "principal": "apigateway.amazonaws.com",
+                            "sourceArn": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":execute-api:",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "AWS::AccountId"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "loanApplicationAPI37F3B860"
+                                  },
+                                  "/",
+                                  {
+                                    "Ref": "loanApplicationAPIDeploymentStagev173DF85C5"
+                                  },
+                                  "/POST/"
+                                ]
+                              ]
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                          "version": "2.89.0"
+                        }
+                      },
+                      "ApiPermission.Test.LoanApplicationStackloanApplicationAPIDE2170BC.POST..": {
+                        "id": "ApiPermission.Test.LoanApplicationStackloanApplicationAPIDE2170BC.POST..",
+                        "path": "LoanApplicationStack/loanApplicationAPI/Default/POST/ApiPermission.Test.LoanApplicationStackloanApplicationAPIDE2170BC.POST..",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                          "aws:cdk:cloudformation:props": {
+                            "action": "lambda:InvokeFunction",
+                            "functionName": {
+                              "Fn::GetAtt": [
+                                "Function76856677",
+                                "Arn"
+                              ]
+                            },
+                            "principal": "apigateway.amazonaws.com",
+                            "sourceArn": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":execute-api:",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "AWS::AccountId"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "loanApplicationAPI37F3B860"
+                                  },
+                                  "/test-invoke-stage/POST/"
+                                ]
+                              ]
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                          "version": "2.89.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "LoanApplicationStack/loanApplicationAPI/Default/POST/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                          "aws:cdk:cloudformation:props": {
+                            "authorizationType": "NONE",
+                            "httpMethod": "POST",
+                            "integration": {
+                              "type": "AWS_PROXY",
+                              "uri": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":apigateway:",
+                                    {
+                                      "Ref": "AWS::Region"
+                                    },
+                                    ":lambda:path/2015-03-31/functions/",
+                                    {
+                                      "Fn::GetAtt": [
+                                        "Function76856677",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "/invocations"
+                                  ]
+                                ]
+                              },
+                              "integrationHttpMethod": "POST"
+                            },
+                            "requestParameters": {
+                              "method.request.path.value1": true,
+                              "method.request.path.value2": true,
+                              "method.request.path.operator": true
+                            },
+                            "resourceId": {
+                              "Fn::GetAtt": [
+                                "loanApplicationAPI37F3B860",
+                                "RootResourceId"
+                              ]
+                            },
+                            "restApiId": {
+                              "Ref": "loanApplicationAPI37F3B860"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                          "version": "2.89.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                      "version": "2.89.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.ResourceBase",
+                  "version": "2.89.0"
+                }
+              },
+              "RequestBodyModel": {
+                "id": "RequestBodyModel",
+                "path": "LoanApplicationStack/loanApplicationAPI/RequestBodyModel",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "LoanApplicationStack/loanApplicationAPI/RequestBodyModel/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Model",
+                      "aws:cdk:cloudformation:props": {
+                        "contentType": "application/json",
+                        "restApiId": {
+                          "Ref": "loanApplicationAPI37F3B860"
+                        },
+                        "schema": {
+                          "$schema": "http://json-schema.org/draft-04/schema#",
+                          "type": "object",
+                          "properties": {
+                            "customerSSN": {
+                              "type": "number"
+                            },
+                            "fullName": {
+                              "type": "string"
+                            },
+                            "loanAmount": {
+                              "type": "number"
+                            },
+                            "salaryAmount": {
+                              "type": "number"
+                            },
+                            "equityAmount": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "customerSSN",
+                            "fullName",
+                            "loanAmount",
+                            "salaryAmount",
+                            "equityAmount"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnModel",
+                      "version": "2.89.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.Model",
+                  "version": "2.89.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.RestApi",
+              "version": "2.89.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "LoanApplicationStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "LoanApplicationStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.89.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "LoanApplicationStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.89.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.2.69"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "LoanApplicationStack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.89.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "LoanApplicationStack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.89.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.89.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.2.69"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.89.0"
+    }
+  }
+}

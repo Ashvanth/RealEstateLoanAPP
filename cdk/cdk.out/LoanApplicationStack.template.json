@@ -1,0 +1,605 @@
+{
+ "Resources": {
+  "FunctionServiceRole675BB04A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/Function/ServiceRole/Resource"
+   }
+  },
+  "Function76856677": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "3353b559c2d9505af1a9292d5227de81e24542ddab2e868c037d034d3a118b81.jar"
+    },
+    "Handler": "com.aws.dnb.handler::handleRequest",
+    "Role": {
+     "Fn::GetAtt": [
+      "FunctionServiceRole675BB04A",
+      "Arn"
+     ]
+    },
+    "Runtime": "java17",
+    "Timeout": 600
+   },
+   "DependsOn": [
+    "FunctionServiceRole675BB04A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/Function/Resource",
+    "aws:asset:path": "asset.3353b559c2d9505af1a9292d5227de81e24542ddab2e868c037d034d3a118b81.jar",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "AuthorizerFunctionJSServiceRole11F4CE68": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/AuthorizerFunctionJS/ServiceRole/Resource"
+   }
+  },
+  "AuthorizerFunctionJSC8CF0AD9": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "authorizerjscode",
+     "S3Key": "authScript.zip"
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "AuthorizerFunctionJSServiceRole11F4CE68",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs14.x"
+   },
+   "DependsOn": [
+    "AuthorizerFunctionJSServiceRole11F4CE68"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/AuthorizerFunctionJS/Resource"
+   }
+  },
+  "loanApplicationAPI37F3B860": {
+   "Type": "AWS::ApiGateway::RestApi",
+   "Properties": {
+    "Name": "loanApplicationAPI"
+   },
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/loanApplicationAPI/Resource"
+   }
+  },
+  "loanApplicationAPIDeploymentF7215B719e7617cbefda683c51d70e60d722d338": {
+   "Type": "AWS::ApiGateway::Deployment",
+   "Properties": {
+    "Description": "Automatically created by the RestApi construct",
+    "RestApiId": {
+     "Ref": "loanApplicationAPI37F3B860"
+    }
+   },
+   "DependsOn": [
+    "loanApplicationAPIPOST3A3D78C2",
+    "loanApplicationAPIRequestBodyModelD1EA3EE2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/loanApplicationAPI/Deployment/Resource"
+   }
+  },
+  "loanApplicationAPIDeploymentStagev173DF85C5": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "DeploymentId": {
+     "Ref": "loanApplicationAPIDeploymentF7215B719e7617cbefda683c51d70e60d722d338"
+    },
+    "RestApiId": {
+     "Ref": "loanApplicationAPI37F3B860"
+    },
+    "StageName": "v1"
+   },
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/loanApplicationAPI/DeploymentStage.v1/Resource"
+   }
+  },
+  "loanApplicationAPIPOSTApiPermissionLoanApplicationStackloanApplicationAPIDE2170BCPOSTC519AED8": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Function76856677",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "loanApplicationAPI37F3B860"
+       },
+       "/",
+       {
+        "Ref": "loanApplicationAPIDeploymentStagev173DF85C5"
+       },
+       "/POST/"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/loanApplicationAPI/Default/POST/ApiPermission.LoanApplicationStackloanApplicationAPIDE2170BC.POST.."
+   }
+  },
+  "loanApplicationAPIPOSTApiPermissionTestLoanApplicationStackloanApplicationAPIDE2170BCPOSTB3E7B438": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Function76856677",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "loanApplicationAPI37F3B860"
+       },
+       "/test-invoke-stage/POST/"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/loanApplicationAPI/Default/POST/ApiPermission.Test.LoanApplicationStackloanApplicationAPIDE2170BC.POST.."
+   }
+  },
+  "loanApplicationAPIPOST3A3D78C2": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "POST",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "Function76856677",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "RequestParameters": {
+     "method.request.path.value1": true,
+     "method.request.path.value2": true,
+     "method.request.path.operator": true
+    },
+    "ResourceId": {
+     "Fn::GetAtt": [
+      "loanApplicationAPI37F3B860",
+      "RootResourceId"
+     ]
+    },
+    "RestApiId": {
+     "Ref": "loanApplicationAPI37F3B860"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/loanApplicationAPI/Default/POST/Resource"
+   }
+  },
+  "loanApplicationAPIRequestBodyModelD1EA3EE2": {
+   "Type": "AWS::ApiGateway::Model",
+   "Properties": {
+    "ContentType": "application/json",
+    "RestApiId": {
+     "Ref": "loanApplicationAPI37F3B860"
+    },
+    "Schema": {
+     "$schema": "http://json-schema.org/draft-04/schema#",
+     "type": "object",
+     "properties": {
+      "customerSSN": {
+       "type": "number"
+      },
+      "fullName": {
+       "type": "string"
+      },
+      "loanAmount": {
+       "type": "number"
+      },
+      "salaryAmount": {
+       "type": "number"
+      },
+      "equityAmount": {
+       "type": "number"
+      }
+     },
+     "required": [
+      "customerSSN",
+      "fullName",
+      "loanAmount",
+      "salaryAmount",
+      "equityAmount"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/loanApplicationAPI/RequestBodyModel/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/01Qy04DMQz8Fu5ZQ0FC5diHuFWg8gFVmpjF3TxWa4eqWu2/k2RXqCfP2OPxJM+wfoOnB33lxtiucXSG8Uu06VRunUan/dlqGN9TMEIxqN13uMefOHhizmxSpD2Mx+iwDEqdFL+cNDMKw6aUzGGbTIey1YxK99Rqwau+5T1k2fRUVxe4x97Fm8cgpXvHcr62HplB1sc0GKyeB5SfaMtwQYdo0VVewDT9y1WNVCwotEXwkaRPsiSYJRnvYrAk9YEhO8CFH39Xa1i95l+7MFEzpCDkEY5z/QNcSw0CUQEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "LoanApplicationStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Outputs": {
+  "loanApplicationAPIEndpoint9232401D": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "loanApplicationAPI37F3B860"
+      },
+      ".execute-api.",
+      {
+       "Ref": "AWS::Region"
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "loanApplicationAPIDeploymentStagev173DF85C5"
+      },
+      "/"
+     ]
+    ]
+   }
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-2"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,142 @@
+{
+  "version": "33.0.0",
+  "artifacts": {
+    "LoanApplicationStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "LoanApplicationStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "LoanApplicationStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "LoanApplicationStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/cae439859e926b80f09967befd06e0160e460894dbecc694ba6963ba636a00eb.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "LoanApplicationStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "LoanApplicationStack.assets"
+      ],
+      "metadata": {
+        "/LoanApplicationStack/Function/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FunctionServiceRole675BB04A"
+          }
+        ],
+        "/LoanApplicationStack/Function/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Function76856677"
+          }
+        ],
+        "/LoanApplicationStack/AuthorizerFunctionJS/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthorizerFunctionJSServiceRole11F4CE68"
+          }
+        ],
+        "/LoanApplicationStack/AuthorizerFunctionJS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthorizerFunctionJSC8CF0AD9"
+          }
+        ],
+        "/LoanApplicationStack/loanApplicationAPI/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loanApplicationAPI37F3B860"
+          }
+        ],
+        "/LoanApplicationStack/loanApplicationAPI/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loanApplicationAPIDeploymentF7215B719e7617cbefda683c51d70e60d722d338"
+          }
+        ],
+        "/LoanApplicationStack/loanApplicationAPI/DeploymentStage.v1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loanApplicationAPIDeploymentStagev173DF85C5"
+          }
+        ],
+        "/LoanApplicationStack/loanApplicationAPI/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loanApplicationAPIEndpoint9232401D"
+          }
+        ],
+        "/LoanApplicationStack/loanApplicationAPI/Default/POST/ApiPermission.LoanApplicationStackloanApplicationAPIDE2170BC.POST..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loanApplicationAPIPOSTApiPermissionLoanApplicationStackloanApplicationAPIDE2170BCPOSTC519AED8"
+          }
+        ],
+        "/LoanApplicationStack/loanApplicationAPI/Default/POST/ApiPermission.Test.LoanApplicationStackloanApplicationAPIDE2170BC.POST..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loanApplicationAPIPOSTApiPermissionTestLoanApplicationStackloanApplicationAPIDE2170BCPOSTB3E7B438"
+          }
+        ],
+        "/LoanApplicationStack/loanApplicationAPI/Default/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loanApplicationAPIPOST3A3D78C2"
+          }
+        ],
+        "/LoanApplicationStack/loanApplicationAPI/RequestBodyModel/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "loanApplicationAPIRequestBodyModelD1EA3EE2"
+          }
+        ],
+        "/LoanApplicationStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/LoanApplicationStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/LoanApplicationStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/LoanApplicationStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "LoanApplicationStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

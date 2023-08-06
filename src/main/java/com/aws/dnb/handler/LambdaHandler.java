@@ -1,55 +1,64 @@
 package com.aws.dnb.handler;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.aws.dnb.controller.ApplicationController;
 import com.aws.dnb.model.ApplicantInformation;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.Map;
 
 @Slf4j
-@Service
-public class LambdaHandler implements RequestStreamHandler {
-    private static ApplicationController applicationController ;
+public class LambdaHandler implements RequestHandler<Map<String, Object>, String> {
 
-    static {
+    private static final String BASE_PACKAGE = "com.aws.dnb";
+
+    private final ApplicationController applicationController;
+
+    public LambdaHandler() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.scan("com.aws.dnb"); // Replace "com.aws.dnb" with the base package of your Spring components
+        context.scan(BASE_PACKAGE);
         context.refresh();
         applicationController = context.getBean(ApplicationController.class);
     }
 
     @Override
-    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
-        String requestBody = readInputStream(inputStream);
+    public String handleRequest(Map<String, Object> input, Context context) {
+        log.info("Input Map values: {}", input);
 
-        ApplicantInformation applicantInformation = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            applicantInformation = objectMapper.readValue(requestBody, ApplicantInformation.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        if (!input.isEmpty()) {
+            log.info("Into POST");
+
+            Integer SSN = (Integer) input.get("customerSSN");
+            String fullName = (String) input.get("fullName");
+            Integer loanAmount = (Integer) input.get("loanAmount");
+            Integer salaryAmount = (Integer) input.get("salaryAmount");
+            Integer equityAmount = (Integer) input.get("equityAmount");
+
+            if (SSN != null && fullName != null && loanAmount != null && salaryAmount != null && equityAmount != null) {
+                try {
+                    ResponseEntity responseEntity = applicationController.submitApplicationInformation(
+                            ApplicantInformation.builder()
+                                    .fullName(fullName)
+                                    .customerSSN(Long.valueOf(SSN))
+                                    .salaryAmount(Long.valueOf(salaryAmount))
+                                    .equityAmount(Long.valueOf(equityAmount))
+                                    .loanAmount(Long.valueOf(loanAmount))
+                                    .build()
+                    );
+                    return responseEntity.getBody().toString();
+                } catch (Exception e) {
+                    throw new RuntimeException("Error processing POST request", e);
+                }
+            } else {
+                throw new IllegalArgumentException("One or more required input fields are missing.");
+            }
+        } else {
+            log.info("Into GET");
+            ResponseEntity responseEntity = applicationController.fetchApplications();
+            return responseEntity.getBody().toString();
         }
-        ResponseEntity responseEntity = applicationController.submitApplicationInformation(applicantInformation);
-        outputStream.write(responseEntity.getBody().toString().getBytes());
-
-    }
-
-    private String readInputStream(InputStream inputStream) throws IOException {
-        StringBuilder stringBuilder = new StringBuilder();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            stringBuilder.append(new String(buffer, 0, bytesRead));
-        }
-        return stringBuilder.toString();
     }
 }

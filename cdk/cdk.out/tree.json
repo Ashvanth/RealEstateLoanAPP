@@ -105,7 +105,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "3cddf99e8a84a2d1b07f8590922ffcaa7c6384f2a4ec05f661b14fe6f772d302.jar"
+                      "s3Key": "19d2843b2f818140d5fb16e07675d0b07d8b9847b300a359a042612db6b402fe.jar"
                     },
                     "handler": "com.aws.dnb.handler.LambdaHandler::handleRequest",
                     "role": {
@@ -229,17 +229,17 @@
               "version": "2.89.0"
             }
           },
-          "loanApplicationAPI": {
-            "id": "loanApplicationAPI",
-            "path": "LoanApplicationStack/loanApplicationAPI",
+          "loanApplicationAPIDemo": {
+            "id": "loanApplicationAPIDemo",
+            "path": "LoanApplicationStack/loanApplicationAPIDemo",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "LoanApplicationStack/loanApplicationAPI/Resource",
+                "path": "LoanApplicationStack/loanApplicationAPIDemo/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
                   "aws:cdk:cloudformation:props": {
-                    "name": "loanApplicationAPI"
+                    "name": "loanApplicationAPIDemo"
                   }
                 },
                 "constructInfo": {
@@ -249,17 +249,17 @@
               },
               "Deployment": {
                 "id": "Deployment",
-                "path": "LoanApplicationStack/loanApplicationAPI/Deployment",
+                "path": "LoanApplicationStack/loanApplicationAPIDemo/Deployment",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "LoanApplicationStack/loanApplicationAPI/Deployment/Resource",
+                    "path": "LoanApplicationStack/loanApplicationAPIDemo/Deployment/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
                       "aws:cdk:cloudformation:props": {
                         "description": "Automatically created by the RestApi construct",
                         "restApiId": {
-                          "Ref": "loanApplicationAPI37F3B860"
+                          "Ref": "loanApplicationAPIDemo52E86968"
                         }
                       }
                     },
@@ -276,19 +276,19 @@
               },
               "DeploymentStage.v1": {
                 "id": "DeploymentStage.v1",
-                "path": "LoanApplicationStack/loanApplicationAPI/DeploymentStage.v1",
+                "path": "LoanApplicationStack/loanApplicationAPIDemo/DeploymentStage.v1",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "LoanApplicationStack/loanApplicationAPI/DeploymentStage.v1/Resource",
+                    "path": "LoanApplicationStack/loanApplicationAPIDemo/DeploymentStage.v1/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
                       "aws:cdk:cloudformation:props": {
                         "deploymentId": {
-                          "Ref": "loanApplicationAPIDeploymentF7215B71a3849c93ea8d8e7592c64821347c7ca9"
+                          "Ref": "loanApplicationAPIDemoDeploymentC0941E03d0c5e6dc43885fb67dd8b2c301a0860d"
                         },
                         "restApiId": {
-                          "Ref": "loanApplicationAPI37F3B860"
+                          "Ref": "loanApplicationAPIDemo52E86968"
                         },
                         "stageName": "v1"
                       }
@@ -306,7 +306,7 @@
               },
               "Endpoint": {
                 "id": "Endpoint",
-                "path": "LoanApplicationStack/loanApplicationAPI/Endpoint",
+                "path": "LoanApplicationStack/loanApplicationAPIDemo/Endpoint",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnOutput",
                   "version": "2.89.0"
@@ -314,15 +314,15 @@
               },
               "Default": {
                 "id": "Default",
-                "path": "LoanApplicationStack/loanApplicationAPI/Default",
+                "path": "LoanApplicationStack/loanApplicationAPIDemo/Default",
                 "children": {
                   "POST": {
                     "id": "POST",
-                    "path": "LoanApplicationStack/loanApplicationAPI/Default/POST",
+                    "path": "LoanApplicationStack/loanApplicationAPIDemo/Default/POST",
                     "children": {
-                      "ApiPermission.LoanApplicationStackloanApplicationAPIDE2170BC.POST..": {
-                        "id": "ApiPermission.LoanApplicationStackloanApplicationAPIDE2170BC.POST..",
-                        "path": "LoanApplicationStack/loanApplicationAPI/Default/POST/ApiPermission.LoanApplicationStackloanApplicationAPIDE2170BC.POST..",
+                      "ApiPermission.LoanApplicationStackloanApplicationAPIDemo614504A5.POST..": {
+                        "id": "ApiPermission.LoanApplicationStackloanApplicationAPIDemo614504A5.POST..",
+                        "path": "LoanApplicationStack/loanApplicationAPIDemo/Default/POST/ApiPermission.LoanApplicationStackloanApplicationAPIDemo614504A5.POST..",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                           "aws:cdk:cloudformation:props": {
@@ -352,11 +352,11 @@
                                   },
                                   ":",
                                   {
-                                    "Ref": "loanApplicationAPI37F3B860"
+                                    "Ref": "loanApplicationAPIDemo52E86968"
                                   },
                                   "/",
                                   {
-                                    "Ref": "loanApplicationAPIDeploymentStagev173DF85C5"
+                                    "Ref": "loanApplicationAPIDemoDeploymentStagev1F01016DA"
                                   },
                                   "/POST/"
                                 ]
@@ -369,9 +369,9 @@
                           "version": "2.89.0"
                         }
                       },
-                      "ApiPermission.Test.LoanApplicationStackloanApplicationAPIDE2170BC.POST..": {
-                        "id": "ApiPermission.Test.LoanApplicationStackloanApplicationAPIDE2170BC.POST..",
-                        "path": "LoanApplicationStack/loanApplicationAPI/Default/POST/ApiPermission.Test.LoanApplicationStackloanApplicationAPIDE2170BC.POST..",
+                      "ApiPermission.Test.LoanApplicationStackloanApplicationAPIDemo614504A5.POST..": {
+                        "id": "ApiPermission.Test.LoanApplicationStackloanApplicationAPIDemo614504A5.POST..",
+                        "path": "LoanApplicationStack/loanApplicationAPIDemo/Default/POST/ApiPermission.Test.LoanApplicationStackloanApplicationAPIDemo614504A5.POST..",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                           "aws:cdk:cloudformation:props": {
@@ -401,7 +401,7 @@
                                   },
                                   ":",
                                   {
-                                    "Ref": "loanApplicationAPI37F3B860"
+                                    "Ref": "loanApplicationAPIDemo52E86968"
                                   },
                                   "/test-invoke-stage/POST/"
                                 ]
@@ -416,7 +416,7 @@
                       },
                       "Resource": {
                         "id": "Resource",
-                        "path": "LoanApplicationStack/loanApplicationAPI/Default/POST/Resource",
+                        "path": "LoanApplicationStack/loanApplicationAPIDemo/Default/POST/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
                           "aws:cdk:cloudformation:props": {
@@ -451,17 +451,17 @@
                             },
                             "requestModels": {
                               "application/json": {
-                                "Ref": "loanApplicationAPIRequestBodyModelD1EA3EE2"
+                                "Ref": "loanApplicationAPIDemoRequestBodyModel8E8B6C1E"
                               }
                             },
                             "resourceId": {
                               "Fn::GetAtt": [
-                                "loanApplicationAPI37F3B860",
+                                "loanApplicationAPIDemo52E86968",
                                 "RootResourceId"
                               ]
                             },
                             "restApiId": {
-                              "Ref": "loanApplicationAPI37F3B860"
+                              "Ref": "loanApplicationAPIDemo52E86968"
                             }
                           }
                         },
@@ -484,17 +484,17 @@
               },
               "RequestBodyModel": {
                 "id": "RequestBodyModel",
-                "path": "LoanApplicationStack/loanApplicationAPI/RequestBodyModel",
+                "path": "LoanApplicationStack/loanApplicationAPIDemo/RequestBodyModel",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "LoanApplicationStack/loanApplicationAPI/RequestBodyModel/Resource",
+                    "path": "LoanApplicationStack/loanApplicationAPIDemo/RequestBodyModel/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ApiGateway::Model",
                       "aws:cdk:cloudformation:props": {
                         "contentType": "application/json",
                         "restApiId": {
-                          "Ref": "loanApplicationAPI37F3B860"
+                          "Ref": "loanApplicationAPIDemo52E86968"
                         },
                         "schema": {
                           "$schema": "http://json-schema.org/draft-04/schema#",

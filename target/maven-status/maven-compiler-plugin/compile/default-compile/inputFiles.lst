@@ -1,11 +1,8 @@
+C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\handler\LambdaHandler2.java
 C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\RealEstateLoanApplication.java
 C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\handler\LambdaHandler.java
 C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\dao\DataSourceConfig.java
 C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\dao\ApplicantionRepository.java
 C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\model\ApplicantInformation.java
 C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\controller\ApplicationController.java
-C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\controller\AdvisorController.java
-C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\model\AdvisorData.java
 C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\service\ApplicantionService.java
-C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\dao\AdvisorRepository.java
-C:\Users\AB73660\SourceCode\SpringbootDemo\DNB_Projects\HomeLoanAPI\src\main\java\com\aws\dnb\service\AdvisorService.java

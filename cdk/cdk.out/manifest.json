@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/cae439859e926b80f09967befd06e0160e460894dbecc694ba6963ba636a00eb.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c3b94bfe4f0567dffb3827bbc35bafa5853b56f3cead8d0d6f8ef114a92ededb.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -66,7 +66,7 @@
         "/LoanApplicationStack/loanApplicationAPI/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "loanApplicationAPIDeploymentF7215B719e7617cbefda683c51d70e60d722d338"
+            "data": "loanApplicationAPIDeploymentF7215B71a3849c93ea8d8e7592c64821347c7ca9"
           }
         ],
         "/LoanApplicationStack/loanApplicationAPI/DeploymentStage.v1/Resource": [

@@ -17,7 +17,7 @@ export class loanApplication extends cdk.Stack {
 
     const loanApplicationFunction = new Function(this, 'Function', {
       runtime: Runtime.JAVA_17,
-      handler: 'com.aws.dnb.handler::handleRequest',
+      handler: 'com.aws.dnb.handler.LambdaHandler::handleRequest',
       code: Code.fromAsset
       ('C:\\Users\\AB73660\\SourceCode\\SpringbootDemo\\DNB_Projects\\HomeLoanAPI\\target\\HomeLoanAPI-0.0.1-SNAPSHOT-aws.jar'),
       timeout: Duration.minutes(10),
@@ -26,8 +26,8 @@ export class loanApplication extends cdk.Stack {
     const bucket = s3.Bucket.fromBucketName(this, 'AuthorizerBucket', 'authorizerjscode');
    
     const authorizerFunction = new Function(this, 'AuthorizerFunctionJS', {
-      runtime: Runtime.NODEJS_14_X,
-      handler: 'index.handler',
+      runtime: Runtime.NODEJS_18_X,
+      handler: 'authScript.handler',
       code: Code.fromBucket(bucket,'authScript.zip'), 
     });
 
@@ -39,16 +39,6 @@ export class loanApplication extends cdk.Stack {
     });
 
     const loanAPIResource = api.root;
-
-    const postMethod = loanAPIResource.addMethod('POST', new apigateway.LambdaIntegration(loanApplicationFunction), {
-      requestParameters: {
-        'method.request.path.value1': true,
-        'method.request.path.value2': true,
-        'method.request.path.operator': true,
-      },
-    
-    
-    });
 
     const requestBodyModel = api.addModel('RequestBodyModel', {
       contentType: 'application/json',
@@ -65,6 +55,21 @@ export class loanApplication extends cdk.Stack {
         required: ['customerSSN', 'fullName', 'loanAmount','salaryAmount','equityAmount'],
       },
     });
+
+    const postMethod = loanAPIResource.addMethod('POST', new apigateway.LambdaIntegration(loanApplicationFunction), {
+      /*requestParameters: {
+        'method.request.path.value1': true,
+        'method.request.path.value2': true,
+        'method.request.path.operator': true,
+      }, */
+      requestModels: {
+        'application/json': requestBodyModel, // Reference to the request model you defined
+      },
+    
+    
+    });
+
+   
   }
 
   }

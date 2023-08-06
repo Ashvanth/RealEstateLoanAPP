@@ -18,13 +18,13 @@ import java.io.OutputStream;
 @Slf4j
 @Service
 public class LambdaHandler implements RequestStreamHandler {
-    private static ApplicationController loanController ;
+    private static ApplicationController applicationController ;
 
     static {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.scan("com.aws.dnb"); // Replace "com.aws.dnb" with the base package of your Spring components
         context.refresh();
-        loanController = context.getBean(ApplicationController.class);
+        applicationController = context.getBean(ApplicationController.class);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class LambdaHandler implements RequestStreamHandler {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        ResponseEntity responseEntity = loanController.submitApplicationInformation(applicantInformation);
+        ResponseEntity responseEntity = applicationController.submitApplicationInformation(applicantInformation);
         outputStream.write(responseEntity.getBody().toString().getBytes());
 
     }

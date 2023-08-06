@@ -1,11 +1,9 @@
+com\aws\dnb\handler\LambdaHandler2.class
 com\aws\dnb\RealEstateLoanApplication.class
-com\aws\dnb\service\AdvisorService.class
-com\aws\dnb\controller\AdvisorController.class
-com\aws\dnb\dao\AdvisorRepository.class
 com\aws\dnb\model\ApplicantInformation.class
 com\aws\dnb\service\ApplicantionService.class
 com\aws\dnb\controller\ApplicationController.class
-com\aws\dnb\model\AdvisorData.class
+com\aws\dnb\model\ApplicantInformation$ApplicantInformationBuilder.class
 com\aws\dnb\dao\ApplicantionRepository.class
 com\aws\dnb\dao\DataSourceConfig.class
 com\aws\dnb\handler\LambdaHandler.class

@@ -41,9 +41,9 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "3353b559c2d9505af1a9292d5227de81e24542ddab2e868c037d034d3a118b81.jar"
+     "S3Key": "3cddf99e8a84a2d1b07f8590922ffcaa7c6384f2a4ec05f661b14fe6f772d302.jar"
     },
-    "Handler": "com.aws.dnb.handler::handleRequest",
+    "Handler": "com.aws.dnb.handler.LambdaHandler::handleRequest",
     "Role": {
      "Fn::GetAtt": [
       "FunctionServiceRole675BB04A",
@@ -58,7 +58,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "LoanApplicationStack/Function/Resource",
-    "aws:asset:path": "asset.3353b559c2d9505af1a9292d5227de81e24542ddab2e868c037d034d3a118b81.jar",
+    "aws:asset:path": "asset.3cddf99e8a84a2d1b07f8590922ffcaa7c6384f2a4ec05f661b14fe6f772d302.jar",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -104,14 +104,14 @@
      "S3Bucket": "authorizerjscode",
      "S3Key": "authScript.zip"
     },
-    "Handler": "index.handler",
+    "Handler": "authScript.handler",
     "Role": {
      "Fn::GetAtt": [
       "AuthorizerFunctionJSServiceRole11F4CE68",
       "Arn"
      ]
     },
-    "Runtime": "nodejs14.x"
+    "Runtime": "nodejs18.x"
    },
    "DependsOn": [
     "AuthorizerFunctionJSServiceRole11F4CE68"
@@ -129,7 +129,7 @@
     "aws:cdk:path": "LoanApplicationStack/loanApplicationAPI/Resource"
    }
   },
-  "loanApplicationAPIDeploymentF7215B719e7617cbefda683c51d70e60d722d338": {
+  "loanApplicationAPIDeploymentF7215B71a3849c93ea8d8e7592c64821347c7ca9": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "Description": "Automatically created by the RestApi construct",
@@ -149,7 +149,7 @@
    "Type": "AWS::ApiGateway::Stage",
    "Properties": {
     "DeploymentId": {
-     "Ref": "loanApplicationAPIDeploymentF7215B719e7617cbefda683c51d70e60d722d338"
+     "Ref": "loanApplicationAPIDeploymentF7215B71a3849c93ea8d8e7592c64821347c7ca9"
     },
     "RestApiId": {
      "Ref": "loanApplicationAPI37F3B860"
@@ -276,10 +276,10 @@
       ]
      }
     },
-    "RequestParameters": {
-     "method.request.path.value1": true,
-     "method.request.path.value2": true,
-     "method.request.path.operator": true
+    "RequestModels": {
+     "application/json": {
+      "Ref": "loanApplicationAPIRequestBodyModelD1EA3EE2"
+     }
     },
     "ResourceId": {
      "Fn::GetAtt": [

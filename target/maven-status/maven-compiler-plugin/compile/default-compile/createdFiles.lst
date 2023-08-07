@@ -1,4 +1,3 @@
-com\aws\dnb\handler\LambdaHandler2.class
 com\aws\dnb\RealEstateLoanApplication.class
 com\aws\dnb\model\ApplicantInformation.class
 com\aws\dnb\service\ApplicantionService.class
